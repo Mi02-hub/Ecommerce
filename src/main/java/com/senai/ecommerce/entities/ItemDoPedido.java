@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 @Table(name = "tb_pedido_item")
 public class ItemDoPedido {
 	
+	
 	@EmbeddedId
 	private ItemDoPedidoPK id = new ItemDoPedidoPK();
 	

@@ -19,22 +19,23 @@ import com.senai.ecommerce.services.ProdutoService;
 @RequestMapping(value = "/produto")
 public class ProdutoController {
 
-    @Autowired 
-    private ProdutoService service;
+	@Autowired
+	ProdutoService service;
 
-    @GetMapping
-    public ResponseEntity<List<ProdutoDTO>> buscar() {
-        return ResponseEntity.ok(service.buscarTodos());
-    }
+	@GetMapping
+	public ResponseEntity<List<ProdutoDTO>> buscar() {
+		return ResponseEntity.ok(service.buscarTodos());
+	}
 
-    @GetMapping(value = "/pagina")
-    public ResponseEntity<Page<ProdutoDTO>> buscarPagina(Pageable pagina) {
-        return ResponseEntity.ok(service.buscarPagina(pagina));
-    }
+	@GetMapping(value = "pagina")
+	public ResponseEntity<Page<ProdutoDTO>> buscarPagina(Pageable pagina) {
+		return ResponseEntity.ok(service.buscarPagina(pagina));
+	}
 
-    @PostMapping(value = "/criar")
-   public ResponseEntity<ProdutoDTO> inserir(@RequestBody ProdutoDTO dto){
-    	dto = service.inserir(dto);
-    	return ResponseEntity.ok(dto);
-    }
+	@PostMapping("/criar")
+	public ResponseEntity<ProdutoDTO> inserir(@RequestBody ProdutoDTO dto) {
+		dto = service.inserir(dto);
+		return ResponseEntity.ok(dto);
+	}
+
 }

@@ -25,26 +25,28 @@ public class Pedido {
 	private Long id;
 	private Instant momento;
 	private StatusDoPedido status;
-	
+	private String nomeProduto;
 
 	@ManyToOne
-	@JoinColumn(name = "cliente_id", nullable = false)
+	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
-	
+
 	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private Pagamento pagamento;
-	
+
 	@OneToMany(mappedBy = "id.pedido")
-	private Set< ItemDoPedido > items = new HashSet<>();
-	
+	private Set<ItemDoPedido> items = new HashSet<>();
+
 	public Pedido() {
 
 	}
 
-	public Pedido(Long id, Instant momento, StatusDoPedido status) {
+	public Pedido(Long id, Instant momento, StatusDoPedido status, String nomeProduto) {
 		this.id = id;
 		this.momento = momento;
 		this.status = status;
+		this.nomeProduto = nomeProduto;
+
 	}
 
 	public Long getId() {
@@ -62,7 +64,6 @@ public class Pedido {
 	public void setMomento(Instant momento) {
 		this.momento = momento;
 	}
-	
 
 	public StatusDoPedido getStatus() {
 		return status;
@@ -71,23 +72,42 @@ public class Pedido {
 	public void setStatus(StatusDoPedido status) {
 		this.status = status;
 	}
-	
-	
+
 	public Set<ItemDoPedido> getItems() {
 		return items;
 	}
 
-	public List<Produto> getProduto(){
-		
+	public List<Produto> getProduto() {
+
 		return items.stream().map(x -> x.getProduto()).toList();
 	}
-    //passando o cliente no pedido
+
 	public Usuario getCliente() {
 		return cliente;
 	}
 
 	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
+	}
+
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+
+	public void setItems(Set<ItemDoPedido> items) {
+		this.items = items;
 	}
 
 }

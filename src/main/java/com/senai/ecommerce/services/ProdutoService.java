@@ -15,40 +15,39 @@ import com.senai.ecommerce.repositories.CategoriaRepository;
 import com.senai.ecommerce.repositories.ProdutoRepository;
 
 import jakarta.transaction.Transactional;
-
 @Service
 public class ProdutoService {
 
-    @Autowired 
-    private ProdutoRepository repo;
-    
-    @Autowired 
-    private CategoriaRepository categoriarepo;
-    
-    
-    public List<ProdutoDTO> buscarTodos() {
-        List<Produto> list = repo.findAll();
-        return list.stream().map(ProdutoDTO::new).toList(); 
-    }
-    
-    public Page<ProdutoDTO> buscarPagina(Pageable pagina) {
-        Page<Produto> result = repo.findAll(pagina);
-        return result.map(ProdutoDTO::new);
-    }
-    
-    @Transactional
-    public ProdutoDTO inserir(ProdutoDTO dto) {
-       Produto produto = new Produto();
-       produto.setNome(dto.getNome());
-       produto.setDescricao(dto.getDescricao());
-       produto.setPreco(dto.getPreco());
-       produto.setImgUrl(dto.getImgUrl());
-       for(CategoriaDTO cat : dto.getCategorias()) {
-    	   
-    	   Categoria categoria = categoriarepo.getReferenceById(cat.getId());
-    	   produto.getCategorias().add(categoria);
-       }
-       produto = repo.save(produto);
-    	return new ProdutoDTO(produto);
-    }
+	@Autowired 
+	ProdutoRepository repo;
+	
+	@Autowired 
+	CategoriaRepository categoriaRepository;
+	
+	public List<ProdutoDTO> buscarTodos() {
+	List<Produto> list = repo.findAll();
+		return list.stream().map(x -> new ProdutoDTO(x)).toList() ; 
+	}
+	
+	public Page<ProdutoDTO> buscarPagina(Pageable pagina ){
+		Page<Produto> result = repo.findAll(pagina);
+		return result.map(x -> new ProdutoDTO(x));
+	}
+	
+@Transactional
+	public ProdutoDTO inserir(ProdutoDTO dto) {
+		Produto prod = new Produto();
+		prod.setNome(dto.getNome());
+		prod.setDescricao(dto.getDescricao());
+		prod.setPreco(dto.getPreco());
+		prod.setImgUrl(dto.getImgUrl());
+		for(CategoriaDTO cat : dto.getCategorias()) {
+			
+			Categoria entity = categoriaRepository.getReferenceById(cat.getId());
+			prod.getCategorias().add(entity);
+		}
+		prod = repo.save(prod);
+		return new ProdutoDTO(prod);
+	}
 }
+

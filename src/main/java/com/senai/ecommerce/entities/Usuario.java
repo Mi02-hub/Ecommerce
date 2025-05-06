@@ -3,8 +3,6 @@ package com.senai.ecommerce.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.senai.ecommerce.dto.UsuarioDTO;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,19 +24,11 @@ public class Usuario {
 	
 	@OneToMany(mappedBy= "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
-    
+
 	public Usuario() {
 
 	}
-    
-	public Usuario(UsuarioDTO user) {
-		id = user.getId();
-		nome = user.getNome();
-		email = user.getEmail();
-	    telefone = user.getTelefone();
-		senha = user.getSenha();
-	}
-	
+
 	public Usuario(Long id, String nome, String email, String telefone, String senha) {
 		this.id = id;
 		this.nome = nome;
@@ -85,11 +75,6 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public Usuario(List<Pedido> pedidos) {
-	
-		this.pedidos = pedidos;
 	}
 
 }
