@@ -20,6 +20,6 @@ public class PagamentoController {
 	@PostMapping("/{pedidoId}")
     public ResponseEntity<String> efetuarPagamento(@PathVariable Long pedidoId) {
         pagamentoService.efetuarPagamento(pedidoId);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Pagamento efetuado com sucesso! :)");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Pagamento efetuado com sucesso! :) ");
     }
 }
