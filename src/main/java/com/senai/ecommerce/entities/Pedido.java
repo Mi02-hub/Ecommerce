@@ -1,12 +1,15 @@
 package com.senai.ecommerce.entities;
 
 import java.time.Instant;
+
 import java.util.HashSet;
-import java.util.List;
+
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,8 +27,10 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Instant momento;
-	private StatusDoPedido status;
 	private String nomeProduto;
+
+	@Enumerated(EnumType.STRING)
+	private StatusDoPedido status;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
@@ -41,12 +46,15 @@ public class Pedido {
 
 	}
 
-	public Pedido(Long id, Instant momento, StatusDoPedido status, String nomeProduto) {
+	public Pedido(Long id, Instant momento, String nomeProduto, StatusDoPedido status, Usuario cliente,
+			Pagamento pagamento, Set<ItemDoPedido> items) {
 		this.id = id;
 		this.momento = momento;
-		this.status = status;
 		this.nomeProduto = nomeProduto;
-
+		this.status = status;
+		this.cliente = cliente;
+		this.pagamento = pagamento;
+		this.items = items;
 	}
 
 	public Long getId() {
@@ -65,21 +73,20 @@ public class Pedido {
 		this.momento = momento;
 	}
 
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
+	}
+
 	public StatusDoPedido getStatus() {
 		return status;
 	}
 
 	public void setStatus(StatusDoPedido status) {
-		this.status = status;
-	}
-
-	public Set<ItemDoPedido> getItems() {
-		return items;
-	}
-
-	public List<Produto> getProduto() {
-
-		return items.stream().map(x -> x.getProduto()).toList();
+	    this.status = status;
 	}
 
 	public Usuario getCliente() {
@@ -90,20 +97,16 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public String getNomeProduto() {
-		return nomeProduto;
-	}
-
-	public void setNomeProduto(String nomeProduto) {
-		this.nomeProduto = nomeProduto;
-	}
-
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
+	}
+
+	public Set<ItemDoPedido> getItems() {
+		return items;
 	}
 
 	public void setItems(Set<ItemDoPedido> items) {
