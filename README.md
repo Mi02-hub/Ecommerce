@@ -19,51 +19,97 @@ Back-end completo para um sistema de e-commerce, desenvolvido com **Java + Sprin
 ## 📂 Estrutura do Projeto
 
 com.senai.ecommerce
+
 │
+
 ├── config/ # Configurações de segurança (JWT)
+
 │ ├── SecurityConfig.java
+
 │ ├── SecurityFilter.java
+
 │ └── TokenService.java
+
 │
+
 ├── controllers/ # Camada de controle (REST Controllers)
+
 │ ├── ProdutoController.java
+
 │ ├── PedidoController.java
+
 │ ├── UsuarioController.java
+
 │ ├── PagamentoController.java
+
 │ └── RelatorioController.java
+
 │
+
 ├── dto/ # Data Transfer Objects
+
 │ ├── ProdutoDTO.java
+
 │ ├── PedidoDTO.java
+
 │ ├── UsuarioDTO.java
+
 │ ├── CategoriaDTO.java
+
 │ ├── ItemDoPedidoDTO.java
+
 │ └── RelatorioPedidoDTO.java
+
 │
+
 ├── entities/ # Entidades JPA
+
 │ ├── Produto.java
+
 │ ├── Pedido.java
+
 │ ├── Usuario.java
+
 │ ├── Categoria.java
+
 │ ├── Pagamento.java
+
 │ ├── ItemDoPedido.java
+
 │ ├── ItemDoPedidoPK.java
+
 │ ├── StatusDoPedido.java
+
 │ └── Role.java
+
 │
+
 ├── repositories/ # Interfaces de acesso ao banco
+
 │ ├── ProdutoRepository.java
+
 │ ├── PedidoRepository.java
+
 │ ├── UsuarioRepository.java
+
 │ ├── CategoriaRepository.java
+
 │ ├── PagamentoRepository.java
+
 │ └── ItemDoPedidoRepository.java
+
 │
+
 └── services/ # Lógica de negócio
+
 ├── ProdutoService.java
+
 ├── PedidoService.java
+
 ├── UsuarioService.java
+
 ├── PagamentoService.java
+
 └── RelatorioService.java
 
 
